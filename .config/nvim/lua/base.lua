@@ -1,0 +1,21 @@
+vim.opt.shell="/bin/zsh"
+vim.opt.number=true
+vim.opt.smartindent = true
+vim.opt.list=true
+vim.opt.wrap=false
+vim.opt.termguicolors = true
+vim.opt.wildmenu=true
+vim.opt.ruler = true
+vim.opt.smartcase = true
+vim.opt.showmatch = true
+vim.opt.shiftwidth=4
+vim.opt.tabstop=4
+vim.opt.expandtab=true
+vim.opt.autoindent=true
+vim.opt.textwidth=0
+vim.opt.hlsearch=true
+vim.opt.clipboard="unnamedplus"
+vim.opt.syntax = 'on'
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = "\\"
