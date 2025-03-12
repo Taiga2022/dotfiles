@@ -18,9 +18,6 @@ config.color_scheme = 'GruvboxDarkHard'
 -- For example, changing the font:
 wezterm.font("HackGen Console NF", {weight="Regular", stretch="Normal", style="Normal"})
 
--- Changing the default program: wsl
-config.default_prog = { "wsl.exe", "--distribution", "ubuntu", "--cd", "~" }
-
 -- keybinds
 -- デフォルトのkeybindを無効化
 config.disable_default_key_bindings = true
