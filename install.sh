@@ -64,6 +64,17 @@ fi
 
 brew bundle -v --file ~/dotfiles/Brewfile
 
+# Oh My Zsh のインストール
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    echo "Installing Oh My Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+# Oh My Zsh によって生成された .zshrc ファイルをバックアップして削除
+if [ -f "$HOME/.zshrc" ]; then
+    mv "$HOME/.zshrc" "$HOME/.zshrc.oh-my-zsh-backup"
+fi
+
 if [ ! -d ~/.config ]; then
     mkdir ~/.config/
 fi
