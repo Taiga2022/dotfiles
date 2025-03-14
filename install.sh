@@ -48,6 +48,7 @@ brew install gcc
 if [ "$CURRENT_SHELL" = "/bin/bash" ] || [ "$CURRENT_SHELL" = "/bin/sh" ]; then
     echo "Changing shell to zsh..."
     brew install zsh
+    sudo sh -c "echo '/usr/local/bin/zsh' >> /etc/shells"
     sudo chsh -s $(which zsh) $USER
 fi
 
