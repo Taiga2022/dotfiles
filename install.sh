@@ -16,15 +16,15 @@ else
 fi
 
 case "$OS" in
-    "Ubuntu" | "Debian GNU/Linux")
-        echo "Setting up for Ubuntu/Debian..."
-        sudo apt update
-        sudo apt install -y build-essential
-        ;;
+"Ubuntu" | "Debian GNU/Linux")
+    echo "Setting up for Ubuntu/Debian..."
+    sudo apt update
+    sudo apt install -y build-essential
+    ;;
 
-    *)
-        echo "OS not supported. You might need to manually install the required packages."
-        ;;
+*)
+    echo "OS not supported. You might need to manually install the required packages."
+    ;;
 esac
 
 # ~/.zshrc にHomebrewの設定を追加
@@ -38,7 +38,7 @@ else
 fi
 
 if ! grep -q 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' "$CONFIG_FILE"; then
-    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$CONFIG_FILE"
+    echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >>"$CONFIG_FILE"
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
@@ -54,7 +54,10 @@ if ! ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
     echo "[Error] SSH authentication to GitHub failed. Installing GitHub CLI..."
     brew install gh
     echo "Please authenticate with GitHub CLI using 'gh auth login' and then re-run the script."
-    gh auth login || { echo "Authentication failed. Exiting..."; exit 1; }
+    gh auth login || {
+        echo "Authentication failed. Exiting..."
+        exit 1
+    }
 fi
 
 if [ ! -d ~/dotfiles ]; then
