@@ -48,7 +48,7 @@ brew install gcc
 if [ "$CURRENT_SHELL" = "/bin/bash" ] || [ "$CURRENT_SHELL" = "/bin/sh" ]; then
     echo "Changing shell to zsh..."
     brew install zsh
-    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh) $USER
 fi
 
 # GitHubへのSSH認証チェック
