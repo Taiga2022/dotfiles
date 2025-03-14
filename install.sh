@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Errorの場合に停止
 set -e
