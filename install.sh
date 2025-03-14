@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Errorの場合に停止
 set -e
@@ -41,8 +41,6 @@ if ! grep -q 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' "$CONFIG_F
     echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$CONFIG_FILE"
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
-brew install gcc
 
 # 現在のシェルがBashやshの場合、Zshをインストールしシェルを変更
 if [ "$CURRENT_SHELL" = "/bin/bash" ] || [ "$CURRENT_SHELL" = "/bin/sh" ]; then
