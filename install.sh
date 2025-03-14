@@ -42,6 +42,8 @@ if ! grep -q 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' "$CONFIG_F
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+brew install gcc
+
 # 現在のシェルがBashやshの場合、Zshをインストールしシェルを変更
 if [ "$CURRENT_SHELL" = "/bin/bash" ] || [ "$CURRENT_SHELL" = "/bin/sh" ]; then
     echo "Changing shell to zsh..."
