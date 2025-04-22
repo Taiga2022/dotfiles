@@ -107,12 +107,12 @@ source $ZSH/oh-my-zsh.sh
 alias vi='nvim'
 alias vim='nvim'
 alias view='nvim -R'
-alias bat='batcat'
-alias fd='fdfind'
+# alias bat='batcat'
+# alias fd='fdfind'
 alias tree='ls -T --icons'
 alias accy='acc submit -s -- -y'
 
-export FZF_DEFAULT_COMMAND='fdfind --type file --no-ignore --follow --hidden --exclude .git'
+export FZF_DEFAULT_COMMAND='fd --type file --no-ignore --follow --hidden --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="--preview 'eza --tree --icons --color=always {} | head -200'"
 export FZF_CTRL_T_OPTS="
