@@ -89,7 +89,7 @@ return {
             function(server_name)
                 require("lspconfig")[server_name].setup({
                     capabilities = capabilities,
-                })
+               })
             end,
         })
         -- 以下は LS から受け取ったエラーなどの診断情報を表示するのに必要

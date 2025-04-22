@@ -50,8 +50,6 @@ vim.keymap.set('n', '<leader>we', '<CMD>BufferLinePickClose<CR>',{desc="BufferLi
 -- (reference)https://github.com/kazhala/dotfiles/blob/master/.config/nvim/lua/kaz/plugins/bufferline.lua
 vim.keymap.set('n', 'gb', '<CMD>BufferLinePick<CR>',{desc="BufferLinePick"})
 vim.keymap.set('n', '<leader>ts', '<CMD>BufferLinePickClose<CR>',{desc="BufferLinePickClose"})
-vim.keymap.set('n', '<leader>l', '<CMD>BufferLineCycleNext<CR>',{desc="BufferLineCycleNext"})
-vim.keymap.set('n', '<leader>h', '<CMD>BufferLineCyclePrev<CR>',{desc="BufferLineCyclePrev"})
-vim.keymap.set('n', '<leader>n', '<CMD>BufferLineMoveNext<CR>',{desc="BufferLineMoveNext"})
-vim.keymap.set('n', '<leader>b', '<CMD>BufferLineMovePrev<CR>',{desc="BufferLineMovePrev"})
+vim.keymap.set('n', '<C-l>', '<CMD>BufferLineCycleNext<CR>',{desc="BufferLineCycleNext"})
+vim.keymap.set('n', '<C-h>', '<CMD>BufferLineCyclePrev<CR>',{desc="BufferLineCyclePrev"})
 vim.keymap.set('n', 'gs', '<CMD>BufferLineSortByDirectory<CR>',{desc="BufferLineSortByDirectory"})

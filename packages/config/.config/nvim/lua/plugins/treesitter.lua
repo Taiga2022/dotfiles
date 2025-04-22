@@ -8,6 +8,7 @@ return {
           "vim",
           "markdown",
           "cpp",
+          "c",
       },
       auto_install=true,
       sync_install = true,

@@ -1,4 +1,4 @@
-vim.opt.shell="/bin/zsh"
+vim.opt.shell="/home/linuxbrew/.linuxbrew/bin/zsh"
 vim.opt.number=true
 vim.opt.smartindent = true
 vim.opt.list=true
