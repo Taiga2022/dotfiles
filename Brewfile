@@ -6,4 +6,4 @@ brew "bat"
 brew "neovim"
 brew "starship"
 brew "stow"
-
+cask "wezterm"
