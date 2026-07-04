@@ -1,4 +1,8 @@
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -144,3 +148,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+
+alias francinette=/home/taiga/francinette/tester.sh
+
+alias paco=/home/taiga/francinette/tester.sh

@@ -1,6 +1,6 @@
 local M = {
     'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
+    lazy = false,
     dependencies = {
         'hrsh7th/cmp-nvim-lsp',
     },
@@ -23,6 +23,8 @@ function M.config()
         local opts = { noremap = true, silent = true }
         local map = vim.api.nvim_buf_set_keymap
         -- goto preview keymappings
+        map(bufnr, 'n', 'gd', "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+        map(bufnr, 'n', 'gD', "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
         map(
             bufnr,
             'n',
@@ -97,11 +99,12 @@ function M.config()
         'clangd',
         -- 'texlab',
         'dockerls',
-        'marksman',
+        --'marksman',
         -- 'bufls',
         --'ansiblels',
         --'denols',
-        -- 'pyright',
+        'pyright',
+        'ts_ls',
     }
 
     for _, lsp in ipairs(servers) do
@@ -238,6 +241,34 @@ function M.config()
     --     },
     --   },
     -- }
+    --    -- -------------------- go lsp settings -- --------------------
+    nvim_lsp.gopls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        root_dir = nvim_lsp.util.root_pattern('go.mod'),
+        settings = {
+            gopls = {
+                gofumpt = true,
+                usePlaceholders = true,
+                completeUnimported = true,
+                experimentalPostfixCompletions = true,
+                analyses = {
+                    unusedparams = true,
+                    shadow = true,
+                },
+                hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
+                staticcheck = true,
+            },
+        },
+    })
 end
 
 return M

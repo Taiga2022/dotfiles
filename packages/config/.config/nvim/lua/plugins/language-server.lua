@@ -1,8 +1,7 @@
-
 return {
-  'williamboman/mason.nvim',
+  'mason-org/mason.nvim',
   dependencies = {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
   },
   event = 'VeryLazy',
   config = function()
@@ -26,7 +25,15 @@ return {
     end
 
     require('mason-lspconfig').setup({
-      automatic_installation = true,
+       ensure_installed = {
+        "bashls",
+        "clangd",
+        "dockerls",
+        "lua_ls",
+        "sqlls",
+        'pyright',
+        'ts_ls',
+        }
     })
   end,
 }

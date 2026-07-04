@@ -1,8 +1,9 @@
 ---@diagnostic disable: missing-fields
 local M = {
     'hrsh7th/nvim-cmp',
+    lazy = false,
     dependencies = {
-        'hrsh7th/cmp-nvim-lsp',
+        { 'hrsh7th/cmp-nvim-lsp', lazy = false },
         'hrsh7th/cmp-buffer',
         -- 'hrsh7th/cmp-emoji',
         'hrsh7th/cmp-path',
@@ -19,6 +20,8 @@ function M.config()
     if not cmp_status_ok then
         return
     end
+
+    require('cmp_nvim_lsp')
 
     local luasnip = require('luasnip')
 
@@ -225,9 +228,7 @@ function M.config()
             --     group_index = 1,
             --     priority = 100,
             -- },
-            { name = 'codecompanion' },
             { name = 'nvim_lsp', priority = 50 },
-            { name = 'cmp_tabnine', priority = 90 },
             { name = 'luasnip', priority = 100 },
             { name = 'path', priority = 99 },
             { name = 'buffer', priority = 50, max_item_count = 5 },
