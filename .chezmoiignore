@@ -1,0 +1,6 @@
+.git/
+.serena/
+scripts/legacy-oh-my-zsh.zsh
+README.md
+install.sh
+Brewfile

@@ -1,0 +1,5 @@
+ohmyzsh/ohmyzsh path:plugins/git
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+Aloxaf/fzf-tab
+zsh-users/zsh-syntax-highlighting

@@ -1,0 +1,38 @@
+export ZDOTDIR="${ZDOTDIR:-$HOME}"
+
+ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+
+for zsh_config in \
+  "$ZSH_CONFIG_DIR/history.zsh" \
+  "$ZSH_CONFIG_DIR/completion.zsh" \
+  "$ZSH_CONFIG_DIR/tools.zsh" \
+  "$ZSH_CONFIG_DIR/aliases.zsh" \
+  "$ZSH_CONFIG_DIR/functions.zsh"
+do
+  [ -r "$zsh_config" ] && source "$zsh_config"
+done
+unset zsh_config
+
+command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
+
+if ! command -v antidote >/dev/null 2>&1; then
+  for antidote_file in \
+    /opt/homebrew/share/antidote/antidote.zsh \
+    /usr/local/share/antidote/antidote.zsh \
+    /home/linuxbrew/.linuxbrew/share/antidote/antidote.zsh
+  do
+    [ -r "$antidote_file" ] && source "$antidote_file" && break
+  done
+  unset antidote_file
+fi
+
+if command -v antidote >/dev/null 2>&1; then
+  zsh_plugins="${ZDOTDIR:-$HOME}/.zsh_plugins.txt"
+  zsh_plugins_static="${zsh_plugins}.zsh"
+  if [ -r "$zsh_plugins" ]; then
+    if [ ! -r "$zsh_plugins_static" ] || [ "$zsh_plugins" -nt "$zsh_plugins_static" ]; then
+      antidote bundle <"$zsh_plugins" >|"$zsh_plugins_static"
+    fi
+    source "$zsh_plugins_static"
+  fi
+fi

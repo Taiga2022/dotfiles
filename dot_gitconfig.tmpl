@@ -1,0 +1,31 @@
+[user]
+	name = {{ .git.name | quote }}
+	email = {{ .git.email | quote }}
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = nvim
+	pager = delta
+	excludesfile = ~/.config/git/ignore
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	side-by-side = true
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	colorMoved = default
+
+[pull]
+	rebase = false
+
+[push]
+	autoSetupRemote = true
