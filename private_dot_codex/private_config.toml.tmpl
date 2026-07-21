@@ -1,0 +1,32 @@
+[projects."{{ .chezmoi.homeDir }}"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/practice/coding-test"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/practice/42/cub3D"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/practice/coding-test/test"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/practice/42/examPlactice"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/dotfiles"]
+trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[features]
+skills = true
+
+[mcp_servers.context7]
+command = "mise"
+args = ["x", "-y", "node@lts", "--", "npx", "-y", "@upstash/context7-mcp"]
+
+[mcp_servers.serena]
+startup_timeout_sec = 15
+command = "serena"
+args = ["start-mcp-server", "--project-from-cwd", "--context=codex"]

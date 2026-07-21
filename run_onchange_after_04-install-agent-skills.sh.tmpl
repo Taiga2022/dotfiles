@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+case "$(uname -s)" in
+  Darwin)
+    if [ -x /opt/homebrew/bin/brew ]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x /usr/local/bin/brew ]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
+    ;;
+  Linux)
+    if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+    ;;
+esac
+
+mise x -y node@lts -- npx --yes skills add vercel-labs/skills \
+  --global --agent codex --skill find-skills --yes --full-depth
+
+mise x -y node@lts -- npx --yes skills add mattpocock/skills \
+  --global --agent codex --skill grill-me grilling --yes --full-depth

@@ -23,7 +23,8 @@ Zsh + Antidote + Starship、言語ランタイムは mise を使います。
 
 ## 初回セットアップ
 
-SSH で GitHub に接続できる状態にしてから実行します。
+初回取得には HTTPS を使うため、GitHub の SSH 設定前でも実行できます。適用後、
+GitHub CLI がブラウザ認証と SSH 鍵の設定を対話形式で案内します。
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/Taiga2022/dotfiles/main/install.sh | sh
@@ -31,23 +32,32 @@ curl -fsSL https://raw.githubusercontent.com/Taiga2022/dotfiles/main/install.sh 
 
 このスクリプトは次の順で実行します。
 
-1. Homebrew がなければインストール
-2. `brew install chezmoi`
-3. `chezmoi init --apply git@github.com:Taiga2022/dotfiles.git`
-4. `git.name` と `git.email` を入力
-5. chezmoi の hooks で `brew bundle --file Brewfile` を実行
+1. C コンパイラーなど、Homebrew に必要なビルドツールを準備
+2. Homebrew がなければインストール
+3. `brew install chezmoi`
+4. HTTPS で `chezmoi init --apply` を実行
+5. `git.name` と `git.email` を入力
+6. chezmoi の hooks で `brew bundle --file Brewfile` を実行
+7. GitHub CLI が未認証なら、ブラウザ認証と SSH 鍵の作成・登録を案内
+8. chezmoi のソースリポジトリの `origin` を SSH URL に変更
 
-リポジトリを変えたい場合は `DOTFILES_REPO` を指定します。
+取得元を変えたい場合は `DOTFILES_REPO` を指定します。この場合、`origin` は指定した
+URL のままです。取得後に別の SSH URL へ切り替える場合は、併せて
+`DOTFILES_SSH_REPO` を指定します。
 
 ```sh
-DOTFILES_REPO=git@github.com:your-name/dotfiles.git sh install.sh
+DOTFILES_REPO=https://github.com/your-name/dotfiles.git \
+DOTFILES_SSH_REPO=git@github.com:your-name/dotfiles.git \
+sh install.sh
 ```
 
 手動で進める場合は次の通りです。
 
 ```sh
 brew install chezmoi
-chezmoi init --apply git@github.com:Taiga2022/dotfiles.git
+chezmoi init --apply https://github.com/Taiga2022/dotfiles.git
+gh auth login --hostname github.com --git-protocol ssh --web
+git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/dotfiles.git
 ```
 
 ## 日常の使い方
@@ -102,9 +112,12 @@ chezmoi apply
 │   ├── starship.toml
 │   ├── wezterm/
 │   └── zsh/
+├── private_dot_codex/
 ├── private_dot_ssh/
 ├── run_once_before_01-install-homebrew.sh.tmpl
-└── run_onchange_before_02-install-packages.sh.tmpl
+├── run_onchange_before_02-install-packages.sh.tmpl
+├── run_onchange_after_03-install-codex-tools.sh.tmpl
+└── run_onchange_after_04-install-agent-skills.sh.tmpl
 ```
 
 `README.md`、`install.sh`、`Brewfile`、`.git/`、`.serena/` は `.chezmoiignore`
@@ -123,8 +136,14 @@ chezmoi apply
 - ripgrep / fd / bat / eza
 - git-delta / lazygit
 - jq / gh / fzf
-- neovim
+- uv
+- neovim / tree-sitter-cli
 - WezTerm
+
+`nvim-treesitter` がパーサーをインストール・更新するには、`tree-sitter` CLI と
+PATH 上の C コンパイラーが必要です。セットアップ時に、macOS では Xcode Command
+Line Tools、Ubuntu では `build-essential` を自動的に準備します。必要に応じて、
+インストールの確認や `sudo` のパスワード入力が発生します。
 
 パッケージを追加したら `Brewfile` を更新してから適用します。
 
@@ -138,6 +157,25 @@ chezmoi apply
 ```sh
 brew bundle dump --force --file Brewfile
 ```
+
+## Codex
+
+`~/.codex/config.toml` を chezmoi テンプレートとして管理し、プロジェクトの trust 設定、
+機能フラグ、MCP サーバー設定を複数環境で再現します。ホームディレクトリの絶対パスは
+`{{ .chezmoi.homeDir }}` へ置き換えています。
+
+`auth.json`、セッション、履歴、ログ、キャッシュ、SQLite データベース、および Codex が
+提供する `skills/.system/` は管理しません。自作スキルを追加した場合だけ、個別に
+dotfiles へ追加します。
+
+Context7 は `mise x node@lts` 経由で実行し、グローバルの Node.js を固定しません。
+Serena は Homebrew の `uv` と `uv tool install -p 3.13 serena-agent` で復元します。
+
+外部スキルは本体をコピーせず、Skills CLI でインストール元から復元します。Node.js は
+`mise x node@lts` で一時的に用意するため、グローバルランタイムとして固定しません。
+
+- `vercel-labs/skills`: `find-skills`
+- `mattpocock/skills`: `grill-me`、`grilling`
 
 ## Zsh
 

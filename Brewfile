@@ -14,5 +14,7 @@ brew "jq"
 brew "gh"
 brew "fzf"
 brew "neovim"
+brew "tree-sitter-cli"
+brew "uv"
 
 cask "wezterm"
