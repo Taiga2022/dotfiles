@@ -1,49 +1,40 @@
 # dotfiles
 
-macOS / Ubuntu で同じ開発環境を再現するための dotfiles です。設定の適用は
-[chezmoi](https://www.chezmoi.io/) に任せ、パッケージ管理は Homebrew、シェル環境は
-Zsh + Antidote + Starship、言語ランタイムは mise を使います。
+macOS / Ubuntu に、いつもの開発環境を再現するための dotfiles。
+[chezmoi](https://www.chezmoi.io/) で設定を同期し、Homebrew でツールを導入します。
 
-## できること
+## Features
 
-- Homebrew が未導入ならインストールする
-- `Brewfile` にある CLI ツールと WezTerm をまとめて入れる
-- `.zshrc`、`.zprofile`、`.gitconfig`、Neovim、WezTerm、Starship、mise などの設定を配置する
-- 初回セットアップ時に Git の `user.name` / `user.email` を入力して、環境ごとの値として保存する
+- ワンコマンドで Homebrew、CLI、GUI アプリ、設定ファイルをセットアップ
+- macOS（Apple Silicon / Intel）と Ubuntu / Linux に対応
+- Zsh + Antidote + Starship、Neovim（LazyVim）、WezTerm を構成
+- mise でプロジェクトごとの言語ランタイムを管理
+- HackGen Nerd Font をOSに応じた方法で導入
+- Git、Codex、外部Agent Skillsを環境ごとに復元
 
-## 対象環境
+## Requirements
 
-- macOS
-  - Apple Silicon: `/opt/homebrew`
-  - Intel Mac: `/usr/local`
-- Ubuntu / Linux
-  - Linuxbrew: `/home/linuxbrew/.linuxbrew`
+- macOS または Ubuntu / Linux
+- インターネット接続
+- 対話入力できるターミナル
+- Ubuntuでは、必要に応じて `sudo` を実行できること
 
-上記の Homebrew パスは自動検出します。
+Homebrewに必要なビルドツールは、セットアップ中に自動で準備します。
 
-## 初回セットアップ
-
-初回取得には HTTPS を使うため、GitHub の SSH 設定前でも実行できます。適用後、
-GitHub CLI がブラウザ認証と SSH 鍵の設定を対話形式で案内します。
+## Quick start
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/Taiga2022/dotfiles/main/install.sh | sh
 ```
 
-このスクリプトは次の順で実行します。
+セットアップでは、Homebrewとchezmoiの導入、設定の適用、`Brewfile`の同期を順に行います。
+初回はGitの名前とメールアドレスを尋ねます。GitHub CLIが未認証の場合は、ブラウザ認証と
+SSH鍵の作成・登録も案内します。
 
-1. C コンパイラーなど、Homebrew に必要なビルドツールを準備
-2. Homebrew がなければインストール
-3. `brew install chezmoi`
-4. HTTPS で `chezmoi init --apply` を実行
-5. `git.name` と `git.email` を入力
-6. chezmoi の hooks で `brew bundle --file Brewfile` を実行
-7. GitHub CLI が未認証なら、ブラウザ認証と SSH 鍵の作成・登録を案内
-8. chezmoi のソースリポジトリの `origin` を SSH URL に変更
+> 適用前に内容を確認したい場合は、リポジトリをcloneして `install.sh` とchezmoiの
+> run scriptを確認してください。
 
-取得元を変えたい場合は `DOTFILES_REPO` を指定します。この場合、`origin` は指定した
-URL のままです。取得後に別の SSH URL へ切り替える場合は、併せて
-`DOTFILES_SSH_REPO` を指定します。
+### 別のリポジトリから導入する
 
 ```sh
 DOTFILES_REPO=https://github.com/your-name/dotfiles.git \
@@ -51,7 +42,10 @@ DOTFILES_SSH_REPO=git@github.com:your-name/dotfiles.git \
 sh install.sh
 ```
 
-手動で進める場合は次の通りです。
+- `DOTFILES_REPO`: chezmoiが最初に取得するURL
+- `DOTFILES_SSH_REPO`: 適用後に設定するGitのremote URL
+
+### 手動セットアップ
 
 ```sh
 brew install chezmoi
@@ -60,215 +54,121 @@ gh auth login --hostname github.com --git-protocol ssh --web
 git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/dotfiles.git
 ```
 
-## 日常の使い方
+## What is included
 
-dotfiles を変更するときは、chezmoi のソースディレクトリで編集します。
+| Category | Tools / settings |
+| --- | --- |
+| Shell | Zsh, Antidote, Starship, zoxide, atuin, fzf |
+| Editor | Neovim, LazyVim, tree-sitter-cli |
+| Terminal | WezTerm, HackGen Nerd Font |
+| CLI | ripgrep, fd, bat, eza, delta, lazygit, jq, gh |
+| Runtime | mise, uv |
+| Configuration | Git, Codex, SSH, Starship, WezTerm |
+| Agent tools | Serena, Context7, external Agent Skills |
+
+パッケージの正確な一覧は [`Brewfile`](./Brewfile) を参照してください。
+
+### OS-specific behavior
+
+- macOS: WezTermとHackGen Nerd FontをHomebrew Caskで導入
+- Linux: WezTermは既存の環境を利用し、HackGen Nerd Font v2.10.0を
+  `~/.local/share/fonts/` へ導入
+- Homebrewの場所は `/opt/homebrew`、`/usr/local`、
+  `/home/linuxbrew/.linuxbrew` から自動検出
+
+## Daily workflow
+
+| Task | Command |
+| --- | --- |
+| ソースディレクトリへ移動 | `chezmoi cd` |
+| 差分を確認 | `chezmoi diff` |
+| 設定を適用 | `chezmoi apply` |
+| 状態を確認 | `chezmoi status` |
+| 管理対象を編集 | `chezmoi edit ~/.zshrc` |
+| chezmoiの設定を編集 | `chezmoi edit-config` |
+
+基本的な更新フローは次のとおりです。
 
 ```sh
 chezmoi cd
-```
-
-適用前に差分を確認します。
-
-```sh
+git pull --rebase
 chezmoi diff
-```
-
-問題なければホームディレクトリへ反映します。
-
-```sh
 chezmoi apply
 ```
 
-現在の適用状況を確認します。
-
-```sh
-chezmoi status
-```
-
-ホームディレクトリ側のファイルから編集したい場合は、chezmoi 経由で開きます。
-
-```sh
-chezmoi edit ~/.zshrc
-chezmoi apply
-```
-
-## 管理している主な設定
-
-```text
-.
-├── Brewfile
-├── install.sh
-├── .chezmoi.toml.tmpl
-├── .chezmoiignore
-├── dot_zprofile.tmpl
-├── dot_zshrc
-├── dot_zsh_plugins.txt
-├── dot_gitconfig.tmpl
-├── dot_config/
-│   ├── git/
-│   ├── mise/
-│   ├── nvim/
-│   ├── starship.toml
-│   ├── wezterm/
-│   └── zsh/
-├── private_dot_codex/
-├── private_dot_ssh/
-├── run_once_before_01-install-homebrew.sh.tmpl
-├── run_onchange_before_02-install-packages.sh.tmpl
-├── run_onchange_after_03-install-codex-tools.sh.tmpl
-└── run_onchange_after_04-install-agent-skills.sh.tmpl
-```
-
-`README.md`、`install.sh`、`Brewfile`、`.git/`、`.serena/` は `.chezmoiignore`
-で除外しているため、ホームディレクトリには配置しません。
-
-## Homebrew
-
-`Brewfile` で dotfiles の土台になるツールを管理します。
-
-- chezmoi
-- mise
-- antidote
-- starship
-- zoxide
-- atuin
-- ripgrep / fd / bat / eza
-- git-delta / lazygit
-- jq / gh / fzf
-- uv
-- neovim / tree-sitter-cli
-- WezTerm
-
-`nvim-treesitter` がパーサーをインストール・更新するには、`tree-sitter` CLI と
-PATH 上の C コンパイラーが必要です。セットアップ時に、macOS では Xcode Command
-Line Tools、Ubuntu では `build-essential` を自動的に準備します。必要に応じて、
-インストールの確認や `sudo` のパスワード入力が発生します。
-
-パッケージを追加したら `Brewfile` を更新してから適用します。
+パッケージを追加・変更した場合は、`Brewfile`を更新してから適用します。
 
 ```sh
 brew bundle --file Brewfile
 chezmoi apply
 ```
 
-現在の Homebrew 状態から `Brewfile` を作り直す場合は次を使います。
+## Configuration notes
 
-```sh
-brew bundle dump --force --file Brewfile
-```
+### Zsh
 
-## Codex
+`.zshrc`は入口だけにし、履歴、補完、ツール初期化、alias、関数を
+`~/.config/zsh/`以下へ分割しています。プラグイン一覧は
+`.zsh_plugins.txt`で管理します。
 
-`~/.codex/config.toml` を chezmoi テンプレートとして管理し、プロジェクトの trust 設定、
-機能フラグ、MCP サーバー設定を複数環境で再現します。ホームディレクトリの絶対パスは
-`{{ .chezmoi.homeDir }}` へ置き換えています。
+### Git
 
-`auth.json`、セッション、履歴、ログ、キャッシュ、SQLite データベース、および Codex が
-提供する `skills/.system/` は管理しません。自作スキルを追加した場合だけ、個別に
-dotfiles へ追加します。
+`.gitconfig`はchezmoiテンプレートです。初回入力した`user.name`と`user.email`を使い、
+Neovim、delta、global ignore、`zdiff3`などを設定します。
 
-Context7 は `mise x node@lts` 経由で実行し、グローバルの Node.js を固定しません。
-Serena は Homebrew の `uv` と `uv tool install -p 3.13 serena-agent` で復元します。
+### mise
 
-外部スキルは本体をコピーせず、Skills CLI でインストール元から復元します。Node.js は
-`mise x node@lts` で一時的に用意するため、グローバルランタイムとして固定しません。
-
-- `vercel-labs/skills`: `find-skills`
-- `mattpocock/skills`: `grill-me`、`grilling`
-
-## Zsh
-
-`.zshrc` は薄い入口にして、実際の設定は `~/.config/zsh/` に分けています。
-
-- `history.zsh`: 履歴設定
-- `completion.zsh`: 補完設定
-- `tools.zsh`: 外部ツールの初期化
-- `aliases.zsh`: alias
-- `functions.zsh`: 関数
-
-Starship と Antidote は存在する場合だけ初期化します。Antidote のプラグイン一覧は
-`dot_zsh_plugins.txt` で管理します。
-
-```text
-zsh-users/zsh-autosuggestions
-zsh-users/zsh-completions
-Aloxaf/fzf-tab
-zsh-users/zsh-syntax-highlighting
-```
-
-プラグインを変更した後は、新しい zsh を起動するか次を実行します。
-
-```sh
-antidote bundle < ~/.zsh_plugins.txt > ~/.zsh_plugins.txt.zsh
-source ~/.zshrc
-```
-
-## Git
-
-`.gitconfig` はテンプレートです。初回 `chezmoi init --apply` のときに入力した
-`git.name` と `git.email` を使って生成します。
-
-主な設定は次の通りです。
-
-- デフォルトブランチは `main`
-- エディタは `nvim`
-- pager / diff 表示は `delta`
-- global ignore は `~/.config/git/ignore`
-- merge conflict style は `zdiff3`
-- `git push` は upstream を自動設定
-
-Git の名前とメールアドレスを変更したい場合は、chezmoi の設定を編集してから再適用します。
-
-```sh
-chezmoi edit-config
-chezmoi apply
-```
-
-## mise
-
-この dotfiles ではグローバルの言語ランタイムを固定しません。Node.js、Go、Python、
-Rust などはプロジェクトごとの `mise.toml` で指定します。
+グローバルの言語ランタイムは固定しません。プロジェクトごとの`mise.toml`で指定します。
 
 ```sh
 mise use node@lts
-mise use go@latest
 mise use python@latest
-mise use rust@latest
 ```
 
-個人用の上書きは `mise.local.toml` を使い、リポジトリには含めません。
+個人用の上書きには、Git管理されない`mise.local.toml`を使います。
 
-## Neovim
+### Nerd Font
 
-`dot_config/nvim/` で LazyVim ベースの設定を管理します。`lazy-lock.json` も含めて
-chezmoi で同期します。
+WezTermの表示フォントは`HackGen Console NF`です。macOSでは`Brewfile`、Linuxでは
+`run_onchange_after_03-install-hackgen-font.sh.tmpl`が同じフォントを管理します。
+Linux側のバージョンを更新するときは、スクリプト内の`version`を変更して
+`chezmoi apply`を実行してください。
 
-## WezTerm
+### Codex and Agent Skills
 
-`dot_config/wezterm/` で端末設定を管理します。`wezterm.lua` から keybind 設定を読み込みます。
+`~/.codex/config.toml`はテンプレートとして同期します。Context7はmiseのNode.js、Serenaは
+uvを使って復元します。外部Skillsはリポジトリへコピーせず、インストール元から再取得します。
 
-## ロールバック
+認証情報、セッション、履歴、ログ、キャッシュ、SQLiteデータベース、Codex組み込みの
+`skills/.system/`は管理しません。
 
-適用前なら差分確認だけで止められます。
+## Repository layout
 
-```sh
-chezmoi diff
+```text
+.
+├── Brewfile                         # Homebrew packages
+├── install.sh                       # bootstrap script
+├── dot_config/                      # ~/.config/
+│   ├── nvim/
+│   ├── wezterm/
+│   └── zsh/
+├── private_dot_codex/               # ~/.codex/
+├── private_dot_ssh/                 # ~/.ssh/
+├── run_once_before_01-*.sh.tmpl     # Homebrew bootstrap
+├── run_onchange_before_02-*.sh.tmpl # package sync
+└── run_onchange_after_*.sh.tmpl     # fonts and tools
 ```
 
-chezmoi ソース側の変更を Git の直前状態へ戻す場合は、変更内容を確認してから戻します。
+`README.md`、`install.sh`、`Brewfile`、`.git/`など、ホームディレクトリへ配置しないものは
+`.chezmoiignore`で除外しています。
+
+## Rollback
+
+適用前は`chezmoi diff`で変更を確認できます。適用後に戻す場合は、chezmoiの
+ソースリポジトリで対象コミットをrevertして再適用します。
 
 ```sh
 chezmoi cd
-git status
-git restore <file>
-```
-
-すでに適用した変更を戻す場合は、chezmoi ソースの Git 履歴を戻してから再適用します。
-
-```sh
-chezmoi cd
-git log --oneline
 git revert <commit>
 chezmoi apply
 ```

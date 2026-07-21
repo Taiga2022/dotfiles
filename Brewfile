@@ -16,5 +16,8 @@ brew "fzf"
 brew "neovim"
 brew "tree-sitter-cli"
 brew "uv"
+brew "unzip" if OS.linux?
 
 cask "wezterm"
+
+cask "font-hackgen-nerd" if OS.mac?
