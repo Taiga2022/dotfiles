@@ -129,8 +129,8 @@ mise use python@latest
 
 ### Nerd Font
 
-WezTermの表示フォントは`HackGen Console NF`です。macOSでは`Brewfile`、Linuxでは
-`run_onchange_after_03-install-hackgen-font.sh.tmpl`が同じフォントを管理します。
+macOSでは`Brewfile`、Linuxでは
+`run_onchange_after_03-install-hackgen-font.sh.tmpl`がHackGen Nerd Fontを管理します。
 Linux側のバージョンを更新するときは、スクリプト内の`version`を変更して
 `chezmoi apply`を実行してください。
 
