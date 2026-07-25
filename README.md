@@ -64,7 +64,7 @@ git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/d
 | CLI | ripgrep, fd, bat, eza, delta, lazygit, jq, gh |
 | Runtime | mise, uv |
 | Configuration | Git, Codex, SSH, Starship, WezTerm |
-| Agent tools | Serena, Context7, external Agent Skills |
+| Agent tools | Codex CLI, Serena, Context7, external Agent Skills |
 
 パッケージの正確な一覧は [`Brewfile`](./Brewfile) を参照してください。
 
@@ -136,8 +136,9 @@ Linux側のバージョンを更新するときは、スクリプト内の`versi
 
 ### Codex and Agent Skills
 
-`~/.codex/config.toml`はテンプレートとして同期します。Context7はmiseのNode.js、Serenaは
-uvを使って復元します。外部Skillsはリポジトリへコピーせず、インストール元から再取得します。
+Codex CLIはHomebrew Caskで導入し、`~/.codex/config.toml`はテンプレートとして同期します。
+Context7はmiseのNode.js、Serenaはuvを使って復元します。外部Skillsはリポジトリへ
+コピーせず、インストール元から再取得します。
 
 認証情報、セッション、履歴、ログ、キャッシュ、SQLiteデータベース、Codex組み込みの
 `skills/.system/`は管理しません。

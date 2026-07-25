@@ -19,5 +19,6 @@ brew "uv"
 brew "unzip" if OS.linux?
 
 cask "wezterm"
+cask "codex"
 
 cask "font-hackgen-nerd" if OS.mac?
