@@ -7,6 +7,7 @@ macOS / Ubuntu に、いつもの開発環境を再現するための dotfiles�
 
 - ワンコマンドで Homebrew、CLI、GUI アプリ、設定ファイルをセットアップ
 - macOS（Apple Silicon / Intel）と Ubuntu / Linux に対応
+- macOSではAeroSpaceによるタイル型ウィンドウ管理を構成
 - Zsh + Antidote + Starship、Neovim（LazyVim）、WezTerm を構成
 - mise でプロジェクトごとの言語ランタイムを管理
 - HackGen Nerd Font をOSに応じた方法で導入
@@ -60,7 +61,7 @@ git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/d
 | --- | --- |
 | Shell | Zsh, Antidote, Starship, zoxide, atuin, fzf |
 | Editor | Neovim, LazyVim, tree-sitter-cli |
-| Terminal | WezTerm, HackGen Nerd Font |
+| Desktop / Terminal | AeroSpace (macOS), WezTerm, HackGen Nerd Font |
 | CLI | ripgrep, fd, bat, eza, delta, lazygit, jq, gh |
 | Runtime | mise, uv |
 | Configuration | Git, Codex, SSH, Starship, WezTerm |
@@ -70,7 +71,7 @@ git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/d
 
 ### OS-specific behavior
 
-- macOS: WezTermとHackGen Nerd FontをHomebrew Caskで導入
+- macOS: AeroSpace、WezTerm、HackGen Nerd FontをHomebrew Caskで導入
 - Linux: WezTermは既存の環境を利用し、HackGen Nerd Font v2.10.0を
   `~/.local/share/fonts/` へ導入
 - Homebrewの場所は `/opt/homebrew`、`/usr/local`、
@@ -126,6 +127,12 @@ mise use python@latest
 ```
 
 個人用の上書きには、Git管理されない`mise.local.toml`を使います。
+
+### AeroSpace
+
+macOSではAeroSpaceをログイン時に起動し、`alt-h/j/k/l`でフォーカス移動、
+`alt-shift-h/j/k/l`でウィンドウ移動、`alt-1`〜`alt-9`でワークスペースを
+切り替えます。設定は`~/.config/aerospace/aerospace.toml`で管理します。
 
 ### Nerd Font
 

@@ -20,5 +20,6 @@ brew "unzip" if OS.linux?
 
 cask "wezterm"
 cask "codex"
+cask "nikitabobko/tap/aerospace" if OS.mac?
 
 cask "font-hackgen-nerd" if OS.mac?
