@@ -17,6 +17,7 @@ alt-h = 'focus left'
 alt-j = 'focus down'
 alt-k = 'focus up'
 alt-l = 'focus right'
+alt-z = 'fullscreen'
 
 alt-shift-h = 'move left'
 alt-shift-j = 'move down'
@@ -25,6 +26,7 @@ alt-shift-l = 'move right'
 
 alt-minus = 'resize smart -50'
 alt-equal = 'resize smart +50'
+alt-q = 'close'
 
 alt-1 = 'workspace 1'
 alt-2 = 'workspace 2'
