@@ -15,6 +15,7 @@ brew "gh"
 brew "fzf"
 brew "neovim"
 brew "tree-sitter-cli"
+brew "bear"
 brew "uv"
 brew "unzip" if OS.linux?
 
