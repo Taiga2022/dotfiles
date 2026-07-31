@@ -61,7 +61,7 @@ git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/d
 | --- | --- |
 | Shell | Zsh, Antidote, Starship, zoxide, atuin, fzf |
 | Editor | Neovim, LazyVim, tree-sitter-cli |
-| Desktop / Terminal | AeroSpace (macOS), WezTerm, HackGen Nerd Font |
+| Desktop / Terminal | AeroSpace (macOS), Docker Desktop (macOS), WezTerm, HackGen Nerd Font |
 | CLI | ripgrep, fd, bat, eza, delta, lazygit, jq, gh |
 | Runtime | mise, uv |
 | Configuration | Git, Codex, SSH, Starship, WezTerm |
@@ -71,7 +71,7 @@ git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/d
 
 ### OS-specific behavior
 
-- macOS: AeroSpace、WezTerm、HackGen Nerd FontをHomebrew Caskで導入
+- macOS: AeroSpace、Docker Desktop、WezTerm、HackGen Nerd FontをHomebrew Caskで導入
 - Linux: WezTermは既存の環境を利用し、HackGen Nerd Font v2.10.0を
   `~/.local/share/fonts/` へ導入
 - Homebrewの場所は `/opt/homebrew`、`/usr/local`、
