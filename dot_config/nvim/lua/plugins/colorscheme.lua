@@ -13,6 +13,11 @@ return {
           fg = "#DCD7BA",
         },
 
+        EndOfBuffer = {
+          bg = "#111318",
+          fg = "#111318",
+        },
+
         Comment = {
           fg = "#727169",
           italic = true,
