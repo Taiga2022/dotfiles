@@ -10,9 +10,10 @@ if command -v eza >/dev/null 2>&1; then
 fi
 
 if command -v bat >/dev/null 2>&1; then
-  alias cat='bat'
+  alias b='bat'
 elif command -v batcat >/dev/null 2>&1; then
   alias bat='batcat'
+  alias b='batcat'
 fi
 
 if command -v fd >/dev/null 2>&1; then

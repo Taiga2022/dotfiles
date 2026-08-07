@@ -4,7 +4,6 @@ palette = "neovim"
 
 format = """
 [░▒▓](purple)\
-$os\
 $username\
 [](bg:blue fg:purple)\
 $directory\
@@ -13,6 +12,7 @@ $git_branch\
 $git_status\
 [](fg:muted bg:background)\
 $c\
+$cpp\
 $nodejs\
 $bun\
 $rust\
@@ -25,7 +25,7 @@ $python\
 [](fg:background bg:comment)\
 $docker_context\
 $conda\
-$time\
+$cmd_duration\
 [ ](fg:comment)\
 \n$character"""
 
@@ -63,10 +63,22 @@ format = '[ $user ]($style)'
 symbol = ""
 style = "bg:muted"
 format = '[[ $symbol $branch ](fg:foreground bg:muted)]($style)'
+truncation_length = 24
+truncation_symbol = "…"
 
 [git_status]
 style = "bg:muted"
 format = '[[($all_status$ahead_behind )](fg:green bg:muted)]($style)'
+conflicted = "!"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+untracked = "?"
+stashed = "*"
+modified = "~"
+staged = "+"
+renamed = "»"
+deleted = "✘"
 
 [nodejs]
 symbol = ""
@@ -133,16 +145,10 @@ format = '[[ $symbol ($context) ](fg:blue bg:comment)]($style)'
 style = "bg:comment"
 format = '[[ $symbol ($environment) ](fg:green bg:comment)]($style)'
 
-[time]
-disabled = false
-time_format = "%R" # Hour:Minute Format
+[cmd_duration]
+min_time = 2_000
 style = "bg:comment"
-format = '[[  $time ](fg:foreground bg:comment)]($style)'
-
-[os]
-style = "bg:purple fg:background"
-format = "[ $symbol ]($style)"
-disabled = false
+format = '[[  $duration ](fg:yellow bg:comment)]($style)'
 
 [character]
 success_symbol = "[❯](bold green)"
