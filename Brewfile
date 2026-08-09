@@ -19,6 +19,9 @@ brew "bear"
 brew "uv"
 brew "unzip" if OS.linux?
 
+tap "FelixKratz/formulae" if OS.mac?
+brew "borders" if OS.mac?
+
 cask "wezterm"
 cask "codex"
 cask "docker-desktop" if OS.mac?

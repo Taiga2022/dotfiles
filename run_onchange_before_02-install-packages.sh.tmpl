@@ -17,4 +17,4 @@ case "$(uname -s)" in
     ;;
 esac
 
-brew bundle --file "{{ .chezmoi.sourceDir }}/Brewfile"
+brew bundle install --no-upgrade --file "{{ .chezmoi.sourceDir }}/Brewfile"
