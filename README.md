@@ -134,7 +134,7 @@ macOSではAeroSpaceをログイン時に起動し、`alt-h/j/k/l`でフォー�
 `alt-shift-h/j/k/l`でウィンドウ移動、`alt-1`〜`alt-9`でワークスペースを
 切り替えます。設定は`~/.config/aerospace/aerospace.toml`で管理します。
 JankyBordersはAeroSpaceと同時に起動し、フォーカス中のウィンドウをNeovim、
-Starship、WezTermと共通の青、非アクティブなウィンドウを半透明のmuted色で
+Starship、WezTermと共通のゴールド、非アクティブなウィンドウを半透明のmuted色で
 表示します。外観は`~/.config/borders/bordersrc`で管理します。
 
 ### Nerd Font

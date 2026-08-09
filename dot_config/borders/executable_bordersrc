@@ -3,9 +3,9 @@
 # Keep window focus aligned with the Neovim, Starship, and WezTerm palette.
 options=(
   style=round
-  width=4.0
+  width=6.0
   hidpi=on
-  active_color=0xff7e9cd8
+  active_color=0xffe6c384
   inactive_color=0x6654546d
 )
 
