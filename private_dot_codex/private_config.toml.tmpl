@@ -16,6 +16,12 @@ trust_level = "trusted"
 [projects."{{ .chezmoi.homeDir }}/dotfiles"]
 trust_level = "trusted"
 
+[projects."{{ .chezmoi.homeDir }}/practice/api-db-practice"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/.local/share/chezmoi"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
@@ -29,4 +35,4 @@ args = ["x", "-y", "node@lts", "--", "npx", "-y", "@upstash/context7-mcp"]
 [mcp_servers.serena]
 startup_timeout_sec = 15
 command = "serena"
-args = ["start-mcp-server", "--project-from-cwd", "--context=codex"]
+args = ["start-mcp-server", "--project-from-cwd", "--context=codex", "--open-web-dashboard=false"]

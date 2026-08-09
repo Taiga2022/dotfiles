@@ -21,7 +21,7 @@ config.window_padding = {
 }
 config.use_fancy_tab_bar = false
 config.tab_max_width = 24
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 config.scrollback_lines = 20000
 
 -- Match the Neovim palette. Gruvbox character comes from the warm accents and
