@@ -61,7 +61,7 @@ git -C "$(chezmoi source-path)" remote set-url origin git@github.com:Taiga2022/d
 | --- | --- |
 | Shell | Zsh, Antidote, Starship, zoxide, atuin, fzf |
 | Editor | Neovim, LazyVim, tree-sitter-cli |
-| Desktop / Terminal | AeroSpace (macOS), Docker Desktop (macOS), WezTerm, HackGen Nerd Font |
+| Desktop / Terminal | AeroSpace (macOS), Karabiner-Elements (macOS), Docker Desktop (macOS), WezTerm, HackGen Nerd Font |
 | CLI | ripgrep, fd, bat, eza, delta, lazygit, jq, gh |
 | Runtime | mise, uv |
 | Configuration | Git, Codex, SSH, Starship, WezTerm |
@@ -136,6 +136,12 @@ macOSではAeroSpaceをログイン時に起動し、`alt-h/j/k/l`でフォー�
 JankyBordersはAeroSpaceと同時に起動し、フォーカス中のウィンドウをNeovim、
 Starship、WezTermと共通のゴールド、非アクティブなウィンドウを半透明のmuted色で
 表示します。外観は`~/.config/borders/bordersrc`で管理します。
+
+### Karabiner-Elements
+
+macOSでは、ターミナルアプリを除き、`Ctrl-C`、`Ctrl-V`、`Ctrl-Z`をそれぞれ
+`Command-C`、`Command-V`、`Command-Z`へ変換します。WezTerm、Terminal、iTerm2、
+Ghostty、Alacritty、kitty、Warpでは通常のControlキーとして動作します。
 
 ### Nerd Font
 

@@ -24,6 +24,7 @@ brew "borders" if OS.mac?
 
 cask "wezterm"
 cask "codex"
+cask "karabiner-elements" if OS.mac?
 cask "docker-desktop" if OS.mac?
 cask "nikitabobko/tap/aerospace" if OS.mac?
 
