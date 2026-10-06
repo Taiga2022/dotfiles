@@ -11,6 +11,17 @@ default-root-container-orientation = 'auto'
 
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
+[workspace-to-monitor-force-assignment]
+1 = 'built-in'
+2 = ['^(?!.*built-in).*$', 'built-in']
+3 = ['^(?!.*built-in).*$', 'built-in']
+4 = ['^(?!.*built-in).*$', 'built-in']
+5 = ['^(?!.*built-in).*$', 'built-in']
+6 = ['^(?!.*built-in).*$', 'built-in']
+7 = ['^(?!.*built-in).*$', 'built-in']
+8 = ['^(?!.*built-in).*$', 'built-in']
+9 = ['^(?!.*built-in).*$', 'built-in']
+
 [mode.main.binding]
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'

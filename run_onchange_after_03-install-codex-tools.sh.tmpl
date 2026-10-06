@@ -19,3 +19,7 @@ esac
 if ! uv tool list | grep -q "^serena-agent "; then
   uv tool install -p 3.13 serena-agent
 fi
+
+if ! uv tool list | grep -q "^posting "; then
+  uv tool install -p 3.13 posting
+fi
